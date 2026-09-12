@@ -1,4 +1,4 @@
-import {faker} from '@faker-js/faker'
+import {faker, ro} from '@faker-js/faker'
 
 class Student{
     name: string;
@@ -71,4 +71,37 @@ for (let i = 0; i < 20; i++){
     students.push(createRandomStudent());
 }
 
-showGoodStudents(students);
+//showGoodStudents(students);
+
+// EX 2
+
+class Money{
+    roubles: number;
+    cents: number;
+
+    constructor(roubles: number, cents: number) {
+        this.roubles = roubles;
+        this.cents = cents;
+    }
+
+    showCost(){
+        console.log(`Roubles: ${this.roubles}, Cents: ${this.cents}`);
+    }
+}
+
+class Goods extends Money{
+    constructor(roubles: number, cents: number) {
+        super(roubles, cents);
+    }
+
+    makeDiscount(percents: number){
+        let newPrice: number = (this.roubles + this.cents / 100) - (this.roubles + this.cents/100) * percents;
+        this.cents = newPrice % 1;
+        this.roubles = newPrice - (newPrice % 1)
+    }
+}
+
+let bread: Goods = new Goods(32, 50);
+bread.showCost();
+bread.makeDiscount(0.2)
+bread.showCost()
